@@ -27,3 +27,4 @@ patient_1 = Patient(**patient_info)
 # patient_2 = Patient(**patient_info_2)
 insert_patient(patient_1)
 # insert_patient(patient_2)
+
