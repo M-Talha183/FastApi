@@ -163,7 +163,7 @@ def predict_premium(data: UserInput):
     input_df = pd.DataFrame([{
         "bmi": data.bmi,
         "age_group": data.age_group,
-        "life_style_risk": data.life_risk,
+    "lifestyle_risk": data.life_risk,  # ✅ fixed spelling
         "city_tier": data.city_tier,
         "income_lpa": data.income_lpa,
         "occupation": data.occupation
