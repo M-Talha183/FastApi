@@ -1,0 +1,1 @@
+# TOday we explore data types for fastapi 
