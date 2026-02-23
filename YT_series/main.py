@@ -4,6 +4,7 @@
 from fastapi import FastAPI
 from mock_data import products
 from mock_data import mock_students
+from fastapi import Request
 app = FastAPI()
 
 @app.get("/")
@@ -38,3 +39,12 @@ def student_by_id(std_id:int):
             return i
         
     return "Student Not Found"
+
+
+# Querry params 
+@app.get("/greet")
+def greet_user(request:Request):
+    querry_params = request.query_params
+    return f"Hello {querry_params.get('name')}, Welcome to FastApi"
+
+    
