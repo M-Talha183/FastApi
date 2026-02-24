@@ -5,6 +5,7 @@ from fastapi import FastAPI
 from mock_data import products
 from mock_data import mock_students
 from fastapi import Request
+from dtos import Product_Item
 app = FastAPI()
 
 @app.get("/")
@@ -53,7 +54,19 @@ def greet_user(request:Request):
 
 # diferent types of HTTP Methods
 @app.post("/create_user")
-def create_user(data):
+def create_user(data:Product_Item):
+    product_data = data.model_dump()
+    products.append(product_data)
+    
     return "User Created Successfully"
+
+@app.put("/update_product/{product_id}")
+def update_data(product_id:int, data:Product_Item):
+    for i, product in enumerate(products):
+        if product.get("id") == product_id:
+            products[i] = data.model_dump()        
+    return "Product Updated Successfully"
+        
 # How to validate the data using pydantic models DTOS
 # How to call different Https Methods 
+
