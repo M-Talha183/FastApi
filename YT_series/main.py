@@ -18,14 +18,14 @@ def get_products():
 
 # ************************************* Path Params *************************
  
-# @app.get("/product/{product_id}")
-# def path_param(product_id:int):
+@app.get("/product/{product_id}")
+def path_param(product_id:int):
     
-#     for i in products:
-#         if i.get("id") == product_id:
-#             return i 
+    for i in products:
+        if i.get("id") == product_id:
+            return i 
     
-#     return "Product is Not Found "
+    return "Product is Not Found "
 
 @app.get("/students")
 def get_students():
@@ -47,4 +47,13 @@ def greet_user(request:Request):
     querry_params = request.query_params
     return f"Hello {querry_params.get('name')}, Welcome to FastApi"
 
-    
+
+# Txypes of Request Body or data we send in the body of the request
+# body , headers , querry params , path params
+
+# diferent types of HTTP Methods
+@app.post("/create_user")
+def create_user(data):
+    return "User Created Successfully"
+# How to validate the data using pydantic models DTOS
+# How to call different Https Methods 
