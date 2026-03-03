@@ -1,9 +1,8 @@
 from fastapi import HTTPException
 
-from src.task.dtos import TaskSchema
+from src.task.dtos import TaskSchema 
 from src.task.models import TaskModel
 from sqlalchemy.orm import Session
-
 
 #  *********** create task ***********
 def create_task(body:TaskSchema , db:Session):
@@ -56,3 +55,5 @@ def delet_task(task_id:int, db:Session):
     db.commit()
     
     return None
+
+

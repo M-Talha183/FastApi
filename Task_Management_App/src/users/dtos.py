@@ -13,3 +13,7 @@ class UserResponceModel(BaseModel):
     email : str 
     id : int
     
+    
+class LoginSchema(BaseModel):
+    user_name : str
+    password : str
