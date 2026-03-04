@@ -19,8 +19,8 @@ def create_task(body:TaskSchema , db:Session ,user:UserModel):
     return  new_task
 
 # *********** get all tasks ***********
-def get_all_tasks(db:Session):
-    tasks = db.query(TaskModel).all()
+def get_all_tasks(db:Session , user:UserModel):
+    tasks = db.query(TaskModel).filter(TaskModel.user_id == user.id).all()
     return tasks
 # *********** get task by id ***********
 def get_task_by_id(task_id:int, db:Session):
@@ -30,10 +30,15 @@ def get_task_by_id(task_id:int, db:Session):
     return task
 
 
-def update_task(task_id:int, body:TaskSchema, db:Session):
-    one_task = db.query(TaskModel).get(task_id)
+def update_task(task_id:int, body:TaskSchema, db:Session ,user:UserModel):
+    one_task :TaskModel = db.query(TaskModel).get(task_id)
     if not one_task:
         raise HTTPException(status_code=404, detail="Task not found")
+    
+    if one_task.user_id != user.id:
+        raise HTTPException(status_code=401, detail="You are not Authorizzed to update task")
+
+        
  
     body_update = body.model_dump()
     for field,value in body_update.items():
@@ -47,11 +52,13 @@ def update_task(task_id:int, body:TaskSchema, db:Session):
     
     
     
-def delet_task(task_id:int, db:Session):
+def delet_task(task_id:int, db:Session ,user:UserModel):
     one_task = db.query(TaskModel).get(task_id)
     if not one_task:
         raise HTTPException(status_code=404, detail="Task not found")
-    
+    if one_task.user_id != user.id:
+        raise HTTPException(status_code=401, detail="You are not Authorizzed to Delete task")
+
     db.delete(one_task)
     db.commit()
     
