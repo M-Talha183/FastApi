@@ -62,8 +62,8 @@ def is_authenticated(request:Request, db:Session):
         if not token:
              raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Yoy are not Authorized")
         token = token.split(" ")[1] 
-        data = jwt.decode(token, settings.SECRET_KEY, settings.ALGORITHM)
-        user_id = data.get("_id")
+        data = jwt.decode(token, settings.SECRET_KEY, algorithms=[settings.ALGORITHM])
+        user_id = data.get("user_id")
     
     
         user = db.query(UserModel).filter(UserModel.id == user_id).first()
